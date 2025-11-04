@@ -48,6 +48,10 @@
   }
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Cairo", sans-serif;
 }

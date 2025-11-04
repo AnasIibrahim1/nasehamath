@@ -4,6 +4,9 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import Button from "@/components/ui/Button";
+import FloatingCircle from "@/components/ui/FloatingCircle";
+import FloatingShape from "@/components/ui/FloatingShape";
+import BlurCircle from "@/components/ui/BlurCircle";
 
 export default function Hero() {
   // (background blob removed)
@@ -23,7 +26,7 @@ export default function Hero() {
   );
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section className="relative min-h-screen">
       {/* Pattern background */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-[1]"
@@ -35,8 +38,16 @@ export default function Hero() {
         }}
       />
       {/* Blur background circles */}
-      <div className="pointer-events-none absolute right-24 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
-      <div className="pointer-events-none absolute left-24 -bottom-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+      <BlurCircle
+        size={256}
+        color="bg-primary/20"
+        position={{ right: "6rem", top: "-5rem" }}
+      />
+      <BlurCircle
+        size={288}
+        color="bg-accent/20"
+        position={{ left: "6rem", bottom: "-6rem" }}
+      />
 
 
       <div className="mx-auto max-w-7xl px-4 py-16 md:py-24">
@@ -84,26 +95,100 @@ export default function Hero() {
               </Button>
 
               <Button
-                variant="outline"
+                variant="login"
                 size="lg"
                 className="rounded-full px-5 border-0 text-[#0553a3]"
                 leftIcon={
-                  <span className="relative inline-flex h-8 w-8 items-center justify-center">
+                  <span className="relative inline-flex h-10 w-10 items-center justify-center">
+                    {/* Outer circle - largest */}
                     <motion.span
-                      className="absolute inset-0 rounded-full"
-                      animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
-                      transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-full border-2 border-[#0553a3]/30"
+                      animate={{
+                        scale: [1, 1.8, 1.8],
+                        opacity: [0.6, 0.3, 0],
+                      }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                        delay: 0,
+                      }}
                     />
+                    {/* Middle circle */}
                     <motion.span
-                      className="absolute inset-0 rounded-full"
-                      animate={{ scale: [1, 1.7, 1], opacity: [0.4, 0, 0.4] }}
-                      transition={{ duration: 2.8, delay: 0.3, repeat: Infinity, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-full border-2 border-[#0553a3]/40"
+                      animate={{
+                        scale: [1, 1.5, 1.5],
+                        opacity: [0.7, 0.4, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                        delay: 0.2,
+                      }}
                     />
-                    <span className="relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#0553a3] text-white">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    {/* Inner circle - smallest */}
+                    <motion.span
+                      className="absolute inset-0 rounded-full border-2 border-[#0553a3]/50"
+                      animate={{
+                        scale: [1, 1.25, 1.25],
+                        opacity: [0.8, 0.5, 0],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                        delay: 0.4,
+                      }}
+                    />
+                    {/* Pulsing glow effect */}
+                    <motion.span
+                      className="absolute inset-0 rounded-full bg-[#0553a3]/20"
+                      animate={{
+                        scale: [1, 1.15, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                    {/* Video icon button */}
+                    <motion.span
+                      className="relative z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#0553a3] text-white shadow-lg shadow-[#0553a3]/30"
+                      animate={{
+                        boxShadow: [
+                          "0 0 0 0 rgba(5, 83, 163, 0.4)",
+                          "0 0 0 8px rgba(5, 83, 163, 0)",
+                          "0 0 0 0 rgba(5, 83, 163, 0)",
+                        ],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <motion.svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        animate={{
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
                         <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </span>
+                      </motion.svg>
+                    </motion.span>
                   </span>
                 }
                 whileHover={{ y: -2 }}
@@ -248,20 +333,26 @@ export default function Hero() {
             </motion.div>
 
             {/* Extra floating circles */}
-            <motion.div
-              className="absolute left-8 bottom-24 h-3 w-3 rounded-full bg-primary/70"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            <FloatingCircle
+              size={12}
+              color="bg-primary/70"
+              position={{ left: "2rem", bottom: "6rem" }}
+              duration={5}
+              delay={0}
             />
-            <motion.div
-              className="absolute right-8 top-24 h-2.5 w-2.5 rounded-full bg-accent/80"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+            <FloatingCircle
+              size={10}
+              color="bg-accent/80"
+              position={{ right: "2rem", top: "6rem" }}
+              duration={4}
+              delay={0.6}
             />
-            <motion.div
-              className="absolute right-24 bottom-32 h-2 w-2 rounded-full bg-primary/60"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+            <FloatingCircle
+              size={8}
+              color="bg-primary/60"
+              position={{ right: "6rem", bottom: "8rem" }}
+              duration={3.5}
+              delay={0.3}
             />
 
             {/* Floating: New students today */}
@@ -288,17 +379,24 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            <motion.div
-              className="absolute -left-6 bottom-8 rounded-full bg-accent/20 w-12 h-12"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            <FloatingShape
+              type="solid-circle"
+              size={48}
+              color="bg-accent/20"
+              position={{ left: "-1.5rem", bottom: "2rem" }}
+              duration={3}
+              delay={0}
             />
 
-            <motion.div
-              className="absolute left-1/2 -bottom-4 w-20 h-20 -translate-x-1/2 rounded-full border-2 border-dashed border-accent/60"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-            />
+            <div className="absolute left-1/2 -bottom-4 -translate-x-1/2">
+              <FloatingShape
+                type="dashed-circle"
+                size={80}
+                color="border-accent/60"
+                position={{ bottom: 0, left: 0 }}
+                duration={16}
+              />
+            </div>
           </div>
         </div>
       </div>

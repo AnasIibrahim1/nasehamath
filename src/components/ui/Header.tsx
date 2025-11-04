@@ -29,7 +29,7 @@ export default function Header() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="top-0 z-40 backdrop-blur bg-white/50 fixed w-full"
+      className="top-0 z-40 backdrop-blur bg-white/50 sticky w-full"
     >
       <TopScrollLine />
       <div className="mx-auto max-w-7xl px-4">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/ui/Header";
+import HeaderV2 from "@/components/ui/Header-v2";
 
 export const metadata: Metadata = {
   title: "Naseehamath - تعليم الرياضيات بسهولة",
@@ -14,9 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`bg-background text-foreground font-sans antialiased min-h-[1000vh]`}>
-        <Header />
+      <body className={`bg-background text-foreground font-sans antialiased`}>
+        <HeaderV2 />
+        <main>
         {children}
+        </main>
       </body>
     </html>
   );
