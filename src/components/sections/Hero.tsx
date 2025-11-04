@@ -84,11 +84,6 @@ export default function Hero() {
                 variant="primary"
                 size="lg"
                 className="rounded-full px-6 shadow-[0_8px_24px_rgba(6,106,201,0.35)] hover:shadow-[0_10px_28px_rgba(6,106,201,0.45)]"
-                leftIcon={
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 2l1.9 5.9H20l-4.8 3.5 1.8 5.9L12 14.8 7 17.3l1.8-5.9L4 7.9h6.1L12 2z" />
-                  </svg>
-                }
                 whileHover={{ y: -2}}
               >
                 ابدأ الآن

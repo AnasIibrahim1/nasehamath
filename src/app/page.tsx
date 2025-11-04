@@ -2,8 +2,8 @@ import Hero from "@/components/sections/Hero";
 import Features from "@/components/sections/Features";
 import Courses from "@/components/sections/Courses";
 import Testimonials from "@/components/sections/Testimonials";
+import SaidAboutUsPreview from "@/components/sections/SaidAboutUsPreview";
 import FAQ from "@/components/sections/FAQ";
-import FAQV2 from "@/components/sections/FAQ-V2";
 import Banner from "@/components/sections/Banner";
 
 export default function Home() {
@@ -13,9 +13,9 @@ export default function Home() {
       <Features />
       <Courses />
       <Testimonials />
-      <FAQV2 />
+      <SaidAboutUsPreview />
+      <FAQ />
       <Banner />
-      {/* <FAQ /> */}
     </>
   );
 }
