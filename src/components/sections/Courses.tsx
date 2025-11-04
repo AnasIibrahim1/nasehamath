@@ -113,15 +113,15 @@ export default function Courses() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-                     <motion.h2
-             className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
-             initial={{ opacity: 0, y: 15 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.5, delay: 0.1 }}
-           >
+          <motion.h2
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
              أهم <span className="text-primary">الدورات</span>
-           </motion.h2>
+          </motion.h2>
           <motion.p
             className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 10 }}
@@ -272,7 +272,7 @@ export default function Courses() {
             />
 
             <span className="relative z-10 flex items-center justify-center gap-2">
-              عرض جميع الدورات
+            عرض جميع الدورات
             </span>
           </motion.button>
         </motion.div>

@@ -161,7 +161,7 @@ export default function HeaderV2() {
                    </motion.svg>
                  }
                >
-                 تسجيل الدخول
+                   تسجيل الدخول
                </Button>
 
                {/* Sign Up Button */}
@@ -195,7 +195,7 @@ export default function HeaderV2() {
                    </motion.svg>
                  }
                >
-                 إنشاء حساب
+                   إنشاء حساب
                </Button>
              </div>
 
@@ -329,7 +329,7 @@ export default function HeaderV2() {
                    </svg>
                  }
                >
-                 تسجيل الدخول
+                   تسجيل الدخول
                </Button>
 
                {/* Mobile Sign Up Button */}
@@ -355,7 +355,7 @@ export default function HeaderV2() {
                    </svg>
                  }
                >
-                 إنشاء حساب
+                   إنشاء حساب
                </Button>
              </div>
 

@@ -312,7 +312,7 @@ export default function Hero() {
 
             {/* Floating: Congratulations box */}
             <motion.div
-              className="absolute z-40 right-8 bottom-32 rounded-2xl bg-white/40 backdrop-blur-md border border-white/30 px-4 py-3 shadow-lg"
+              className="absolute z-40 right-8 bottom-0 lg:bottom-32 rounded-2xl bg-white/40 backdrop-blur-md border border-white/30 px-4 py-3 shadow-lg"
               initial={{ opacity: 0, scale: 0.9, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
