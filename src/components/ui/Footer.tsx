@@ -18,7 +18,6 @@ const quickLinks = [
   { href: "/courses", label: "جميع الدورات" },
   { href: "/courses?category=free", label: "الدورات المجانية" },
   { href: "/courses?category=paid", label: "الدورات المدفوعة" },
-  { href: "/about", label: "من نحن" },
 ];
 
 const supportLinks = [
