@@ -33,7 +33,10 @@ export default function RegisterForm() {
     setLoading(true);
     setTimeout(() => {
       try {
-        localStorage.setItem("auth_session", JSON.stringify({ email, name, role: "user" }));
+        // Generate temporary token
+        const token = `temp_token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem("auth_token", token);
+        localStorage.setItem("user_data", JSON.stringify({ email, name, role: "user" }));
       } catch {}
       setLoading(false);
       setSuccess(true);

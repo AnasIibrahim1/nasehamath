@@ -24,7 +24,10 @@ export default function LoginForm() {
     setTimeout(() => {
       if (email.trim().toLowerCase() === "admin@admin.com" && password === "password") {
         try {
-          localStorage.setItem("auth_session", JSON.stringify({ email, role: "admin" }));
+          // Generate temporary token
+          const token = `temp_token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+          localStorage.setItem("auth_token", token);
+          localStorage.setItem("user_data", JSON.stringify({ email, name: "Admin", role: "admin" }));
         } catch {}
         setSuccess(true);
         setLoading(false);

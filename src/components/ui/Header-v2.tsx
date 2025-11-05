@@ -4,13 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, AnimatePresence, useMotionValueEvent } from "motion/react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Button from "@/components/ui/Button";
+import UserMenu from "@/components/ui/UserMenu";
 import { navLinks } from "@/data/navigation";
 
 export default function HeaderV2() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { scrollYProgress } = useScroll();
 
   const isActive = useMemo(
@@ -23,6 +25,29 @@ export default function HeaderV2() {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     setScrollProgress(latest);
   });
+
+  // Check authentication status
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        const token = localStorage.getItem("auth_token");
+        setIsAuthenticated(!!token);
+      } catch {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuth();
+    // Listen for storage changes (e.g., login/logout in another tab)
+    window.addEventListener("storage", checkAuth);
+    // Also check on pathname change
+    const interval = setInterval(checkAuth, 1000);
+
+    return () => {
+      window.removeEventListener("storage", checkAuth);
+      clearInterval(interval);
+    };
+  }, [pathname]);
 
   return (
     <>
@@ -123,75 +148,81 @@ export default function HeaderV2() {
               ))}
                          </nav>
 
-             {/* Auth Buttons - Premium Design */}
+             {/* Auth Buttons or User Menu */}
              <div className="hidden lg:flex items-center gap-3">
-               {/* Login Button */}
-               <Button
-                 variant="login"
-                 size="md"
-                 href="/login"
-                 leftIcon={
-                   <motion.svg
-                     width="16"
-                     height="16"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     strokeWidth="2"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
-                     animate={{
-                       x: [0, 2, 0],
-                     }}
-                     transition={{
-                       duration: 1.5,
-                       repeat: Infinity,
-                       ease: "easeInOut",
-                     }}
+               {isAuthenticated ? (
+                 <UserMenu />
+               ) : (
+                 <>
+                   {/* Login Button */}
+                   <Button
+                     variant="login"
+                     size="md"
+                     href="/login"
+                     leftIcon={
+                       <motion.svg
+                         width="16"
+                         height="16"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         animate={{
+                           x: [0, 2, 0],
+                         }}
+                         transition={{
+                           duration: 1.5,
+                           repeat: Infinity,
+                           ease: "easeInOut",
+                         }}
+                       >
+                         <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                         <polyline points="10 17 15 12 10 7" />
+                         <line x1="15" y1="12" x2="3" y2="12" />
+                       </motion.svg>
+                     }
                    >
-                     <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                     <polyline points="10 17 15 12 10 7" />
-                     <line x1="15" y1="12" x2="3" y2="12" />
-                   </motion.svg>
-                 }
-               >
-                   تسجيل الدخول
-               </Button>
+                     تسجيل الدخول
+                   </Button>
 
-               {/* Sign Up Button */}
-               <Button
-                 variant="primary"
-                 size="md"
-                 href="/register"
-                 leftIcon={
-                   <motion.svg
-                     width="16"
-                     height="16"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     strokeWidth="2.5"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
-                     animate={{
-                       rotate: [0, 10, -10, 0],
-                     }}
-                     transition={{
-                       duration: 2,
-                       repeat: Infinity,
-                       repeatDelay: 1.5,
-                       ease: "easeInOut",
-                     }}
+                   {/* Sign Up Button */}
+                   <Button
+                     variant="primary"
+                     size="md"
+                     href="/register"
+                     leftIcon={
+                       <motion.svg
+                         width="16"
+                         height="16"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         strokeWidth="2.5"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         animate={{
+                           rotate: [0, 10, -10, 0],
+                         }}
+                         transition={{
+                           duration: 2,
+                           repeat: Infinity,
+                           repeatDelay: 1.5,
+                           ease: "easeInOut",
+                         }}
+                       >
+                         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                         <circle cx="9" cy="7" r="4" />
+                         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                       </motion.svg>
+                     }
                    >
-                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                     <circle cx="9" cy="7" r="4" />
-                     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                   </motion.svg>
-                 }
-               >
-                   إنشاء حساب
-               </Button>
+                     إنشاء حساب
+                   </Button>
+                 </>
+               )}
              </div>
 
              {/* Mobile Menu Button - Enhanced */}
@@ -300,60 +331,134 @@ export default function HeaderV2() {
                              ))}
              </div>
 
-             {/* Mobile Auth Buttons - Premium Design */}
+             {/* Mobile Auth Buttons or User Menu */}
              <div className="px-4 pt-4 pb-6 space-y-3 border-t border-border/30 mt-4">
-               {/* Mobile Login Button */}
-               <Button
-                 variant="login"
-                 size="lg"
-                 className="w-full"
-                 href="/login"
-                 leftIcon={
-                   <svg
-                     width="18"
-                     height="18"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     strokeWidth="2"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
+               {isAuthenticated ? (
+                 <div className="flex flex-col gap-3">
+                   <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl">
+                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold">
+                       <svg
+                         width="20"
+                         height="20"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         strokeWidth="2.5"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                       >
+                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                         <circle cx="12" cy="7" r="4" />
+                       </svg>
+                     </div>
+                     <div className="flex-1">
+                       <p className="text-sm font-bold text-foreground">
+                         {typeof window !== "undefined" && localStorage.getItem("user_data")
+                           ? JSON.parse(localStorage.getItem("user_data") || "{}")?.name ||
+                             JSON.parse(localStorage.getItem("user_data") || "{}")?.email?.split("@")[0] ||
+                             "مستخدم"
+                           : "مستخدم"}
+                       </p>
+                     </div>
+                   </div>
+                   <Link
+                     href="/profile"
+                     onClick={() => setIsMobileMenuOpen(false)}
+                     className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 hover:bg-primary/10 hover:text-primary rounded-xl transition-colors"
                    >
-                     <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                     <polyline points="10 17 15 12 10 7" />
-                     <line x1="15" y1="12" x2="3" y2="12" />
-                   </svg>
-                 }
-               >
-                   تسجيل الدخول
-               </Button>
+                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                       <circle cx="12" cy="7" r="4" />
+                     </svg>
+                     <span>حسابي</span>
+                   </Link>
+                   <Link
+                     href="/my-courses"
+                     onClick={() => setIsMobileMenuOpen(false)}
+                     className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 hover:bg-primary/10 hover:text-primary rounded-xl transition-colors"
+                   >
+                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                       <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+                       <path d="M9 10h6" />
+                       <path d="M12 7v6" />
+                     </svg>
+                     <span>دوراتي</span>
+                   </Link>
+                   <button
+                     onClick={() => {
+                       try {
+                         localStorage.removeItem("auth_token");
+                         localStorage.removeItem("user_data");
+                       } catch {}
+                       setIsMobileMenuOpen(false);
+                       window.location.href = "/";
+                     }}
+                     className="flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 rounded-xl transition-colors"
+                   >
+                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                       <polyline points="16 17 21 12 16 7" />
+                       <line x1="21" y1="12" x2="9" y2="12" />
+                     </svg>
+                     <span>تسجيل الخروج</span>
+                   </button>
+                 </div>
+               ) : (
+                 <>
+                   {/* Mobile Login Button */}
+                   <Button
+                     variant="login"
+                     size="lg"
+                     className="w-full"
+                     href="/login"
+                     leftIcon={
+                       <svg
+                         width="18"
+                         height="18"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                       >
+                         <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                         <polyline points="10 17 15 12 10 7" />
+                         <line x1="15" y1="12" x2="3" y2="12" />
+                       </svg>
+                     }
+                   >
+                     تسجيل الدخول
+                   </Button>
 
-               {/* Mobile Sign Up Button */}
-               <Button
-                 variant="primary"
-                 size="lg"
-                 className="w-full"
-                 href="/register"
-                 leftIcon={
-                   <svg
-                     width="18"
-                     height="18"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     strokeWidth="2.5"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
+                   {/* Mobile Sign Up Button */}
+                   <Button
+                     variant="primary"
+                     size="lg"
+                     className="w-full"
+                     href="/register"
+                     leftIcon={
+                       <svg
+                         width="18"
+                         height="18"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         strokeWidth="2.5"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                       >
+                         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                         <circle cx="9" cy="7" r="4" />
+                         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                       </svg>
+                     }
                    >
-                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                     <circle cx="9" cy="7" r="4" />
-                     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                   </svg>
-                 }
-               >
-                   إنشاء حساب
-               </Button>
+                     إنشاء حساب
+                   </Button>
+                 </>
+               )}
              </div>
 
              {/* Decorative bottom gradient */}
