@@ -20,7 +20,7 @@ export default function CourseHeader({ course, isAuthenticated, isSubscribed }: 
           src={course.image || "/courses/course.jpg"}
           alt={course.title}
           fill
-          className="object-cover"
+          className="object-cover HERO NNAME"
           priority
         />
         {/* Gradient Overlay */}
