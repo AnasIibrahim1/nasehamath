@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { Course } from "@/types/course";
 
@@ -91,13 +92,15 @@ export default function CourseCard({ course, index }: CourseCardProps) {
             </span>
             <span className="text-sm text-foreground/60 font-medium">ريال</span>
           </div>
-          <Button
-            variant="login"
-            size="md"
-            className="px-4 sm:px-5 cursor-pointer"
-          >
-            سجل الآن
-          </Button>
+                     <Link href={`/courses/${course.id}`}>
+                       <Button
+                         variant="login"
+                         size="md"
+                         className="px-4 sm:px-5 cursor-pointer"
+                       >
+                         سجل الآن
+                       </Button>
+                     </Link>
         </div>
       </div>
 

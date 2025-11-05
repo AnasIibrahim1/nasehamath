@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import BlurCircle from "@/components/ui/BlurCircle";
 import FloatingShape from "@/components/ui/FloatingShape";
 import Button from "@/components/ui/Button";
@@ -131,13 +132,15 @@ export default function Courses() {
                     </span>
                     <span className="text-sm text-foreground/60 font-medium">ريال</span>
                   </div>
-                  <Button
-                    variant="login"
-                    size="md"
-                    className="px-5 cursor-pointer"
-                  >
-                    سجل الآن
-                  </Button>
+                  <Link href={`/courses/${course.id}`}>
+                    <Button
+                      variant="login"
+                      size="md"
+                      className="px-5 cursor-pointer"
+                    >
+                      سجل الآن
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
