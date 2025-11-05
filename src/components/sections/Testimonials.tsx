@@ -6,57 +6,7 @@ import Image from "next/image";
 import BlurCircle from "@/components/ui/BlurCircle";
 import FloatingShape from "@/components/ui/FloatingShape";
 import Pagination from "@/components/ui/Pagination";
-
-interface Testimonial {
-  id: number;
-  name: string;
-  rate: number;
-  message: string;
-  avatar?: string;
-}
-
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    name: "أحمد محمد",
-    rate: 5,
-    message:
-      "دورات ممتازة جداً، شرح واضح ومبسط. استفدت كثيراً من دورات التأسيس والمراجعة. أنصح الجميع بالانضمام.",
-    avatar: "/Newppl/01.jpg",
-  },
-  {
-    id: 2,
-    name: "فاطمة علي",
-    rate: 5,
-    message:
-      "الأستاذ ثامر شرح رائع ومفصل. ساعدني في فهم الرياضيات بشكل أفضل. شكراً جزيلاً على المجهود الكبير.",
-    avatar: "/Newppl/02.jpg",
-  },
-  {
-    id: 3,
-    name: "خالد إبراهيم",
-    rate: 5,
-    message:
-      "أفضل دورات رياضيات أونلاين! المحتوى منظم والأوراق العمل مفيدة جداً. التوجيهي أصبح أسهل بفضل هذه الدورات.",
-    avatar: "/Newppl/03.jpg",
-  },
-  {
-    id: 4,
-    name: "سارة أحمد",
-    rate: 5,
-    message:
-      "شرح مبسط وسهل الفهم. الأستاذ متجاوب جداً مع الأسئلة. أنصح كل الطلاب بالانضمام للدورات.",
-    avatar: "/Newppl/04.jpg",
-  },
-  {
-    id: 5,
-    name: "محمد حسن",
-    rate: 5,
-    message:
-      "دورات احترافية بمعنى الكلمة. الفيديوهات واضحة والتمارين شاملة. حققت نتائج ممتازة بفضل هذه الدورات.",
-    avatar: "/Newppl/05.jpg",
-  },
-];
+import { testimonials } from "@/data/testimonials";
 
 export default function Testimonials() {
   const [currentPage, setCurrentPage] = useState(1);

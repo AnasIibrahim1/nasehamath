@@ -5,82 +5,7 @@ import Image from "next/image";
 import BlurCircle from "@/components/ui/BlurCircle";
 import FloatingShape from "@/components/ui/FloatingShape";
 import Button from "@/components/ui/Button";
-
-interface Course {
-  id: number;
-  title: string;
-  description: string;
-  students: number;
-  price: string;
-  duration: string;
-}
-
-const courses: Course[] = [
-  {
-    id: 1,
-    title: "دورة الرياضيات الأساسية",
-    description: "تعلم الأساسيات المهمة في الرياضيات مع شرح مفصل لكل موضوع وتمارين تطبيقية",
-    students: 1250,
-    price: "299",
-    duration: "8 أسابيع",
-  },
-  {
-    id: 2,
-    title: "دورة الجبر المتقدم",
-    description: "تعمق في علم الجبر المتقدم مع شرح شامل لكل المفاهيم الأساسية والمتقدمة",
-    students: 890,
-    price: "349",
-    duration: "10 أسابيع",
-  },
-  {
-    id: 3,
-    title: "دورة الهندسة التحليلية",
-    description: "تعلم الهندسة التحليلية مع شرح مفصل لكل موضوع وتمارين إلكترونية متقدمة",
-    students: 1100,
-    price: "279",
-    duration: "9 أسابيع",
-  },
-  {
-    id: 4,
-    title: "دورة التفاضل والتكامل",
-    description: "دورة شاملة في التفاضل والتكامل مع شرح مفصل لكل المفاهيم الأساسية والمتقدمة",
-    students: 980,
-    price: "319",
-    duration: "12 أسابيع",
-  },
-  {
-    id: 5,
-    title: "دورة الإحصاء والاحتمالات",
-    description: "تعلم الإحصاء والاحتمالات مع أمثلة عملية وتمارين تطبيقية متنوعة",
-    students: 750,
-    price: "289",
-    duration: "7 أسابيع",
-  },
-  {
-    id: 6,
-    title: "دورة الجبر الخطي",
-    description: "دورة متقدمة في الجبر الخطي مع شرح مفصل للمصفوفات والمتجهات",
-    students: 650,
-    price: "329",
-    duration: "9 أسابيع",
-  },
-  {
-    id: 7,
-    title: "دورة المعادلات التفاضلية",
-    description: "تعلم حل المعادلات التفاضلية بأنواعها المختلفة مع أمثلة وتطبيقات عملية",
-    students: 580,
-    price: "359",
-    duration: "11 أسابيع",
-  },
-  {
-    id: 8,
-    title: "دورة الرياضيات التطبيقية",
-    description: "تطبيق الرياضيات في الحياة العملية مع مشاريع واقعية وتمارين عملية",
-    students: 920,
-    price: "309",
-    duration: "10 أسابيع",
-  },
-];
+import { homeCourses } from "@/data/courses-home";
 
 export default function Courses() {
   return (
@@ -135,7 +60,7 @@ export default function Courses() {
 
         {/* Courses Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {courses.map((course, index) => (
+          {homeCourses.map((course, index) => (
             <motion.div
               key={course.id}
               initial={{ opacity: 0, y: 30 }}

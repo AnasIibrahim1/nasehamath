@@ -6,52 +6,7 @@ import Image from "next/image";
 import BlurCircle from "@/components/ui/BlurCircle";
 import FloatingShape from "@/components/ui/FloatingShape";
 import Pagination from "@/components/ui/Pagination";
-
-interface TestimonialScreenshot {
-  id: number;
-  imageUrl: string;
-  platform: "whatsapp" | "facebook" | "website";
-  alt: string;
-}
-
-const screenshotTestimonials: TestimonialScreenshot[] = [
-  {
-    id: 1,
-    imageUrl: "/whatsapp.jpeg",
-    platform: "whatsapp",
-    alt: "رأي طالب عن الدورات عبر واتساب",
-  },
-  {
-    id: 2,
-    imageUrl: "/testimonials/facebook-1.jpg",
-    platform: "facebook",
-    alt: "رأي طالب عن الدورات عبر فيسبوك",
-  },
-  {
-    id: 3,
-    imageUrl: "/whatsapp.jpeg",
-    platform: "whatsapp",
-    alt: "رأي طالب آخر عن الدورات عبر واتساب",
-  },
-  {
-    id: 4,
-    imageUrl: "/testimonials/facebook-2.jpg",
-    platform: "facebook",
-    alt: "رأي طالب عن الدورات عبر فيسبوك",
-  },
-  {
-    id: 5,
-    imageUrl: "/whatsapp.jpeg",
-    platform: "whatsapp",
-    alt: "رأي طالب عن الدورات عبر واتساب",
-  },
-  {
-    id: 6,
-    imageUrl: "/testimonials/website-1.jpg",
-    platform: "website",
-    alt: "رأي طالب عن الدورات عبر الموقع",
-  },
-];
+import { screenshotTestimonials } from "@/data/testimonials";
 
 const getPlatformLabel = (platform: string) => {
   switch (platform) {

@@ -4,99 +4,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import BlurCircle from "@/components/ui/BlurCircle";
 import FloatingShape from "@/components/ui/FloatingShape";
-
-interface TestimonialScreenshot {
-  id: number;
-  name: string;
-  avatar: string;
-  message: string;
-  time: string;
-  platform: "whatsapp" | "facebook" | "website";
-}
-
-const testimonials: TestimonialScreenshot[] = [
-  {
-    id: 1,
-    name: "أحمد محمد",
-    avatar: "/Newppl/01.jpg",
-    message:
-      "دورات ممتازة جداً! شرح واضح ومبسط. استفدت كثيراً من دورات التأسيس والمراجعة. أنصح الجميع بالانضمام.",
-    time: "منذ ساعتين",
-    platform: "whatsapp",
-  },
-  {
-    id: 2,
-    name: "فاطمة علي",
-    avatar: "/Newppl/02.jpg",
-    message:
-      "الأستاذ ثامر شرح رائع ومفصل. ساعدني في فهم الرياضيات بشكل أفضل. شكراً جزيلاً على المجهود الكبير.",
-    time: "منذ 3 ساعات",
-    platform: "facebook",
-  },
-  {
-    id: 3,
-    name: "خالد إبراهيم",
-    avatar: "/Newppl/03.jpg",
-    message:
-      "أفضل دورات رياضيات أونلاين! المحتوى منظم والأوراق العمل مفيدة جداً. التوجيهي أصبح أسهل بفضل هذه الدورات.",
-    time: "منذ يوم",
-    platform: "whatsapp",
-  },
-  {
-    id: 4,
-    name: "سارة أحمد",
-    avatar: "/Newppl/04.jpg",
-    message:
-      "شرح مبسط وسهل الفهم. الأستاذ متجاوب جداً مع الأسئلة. أنصح كل الطلاب بالانضمام للدورات.",
-    time: "منذ يومين",
-    platform: "website",
-  },
-  {
-    id: 5,
-    name: "محمد حسن",
-    avatar: "/Newppl/05.jpg",
-    message:
-      "دورات احترافية بمعنى الكلمة. الفيديوهات واضحة والتمارين شاملة. حققت نتائج ممتازة بفضل هذه الدورات.",
-    time: "منذ 3 أيام",
-    platform: "whatsapp",
-  },
-  {
-    id: 6,
-    name: "ليلى محمود",
-    avatar: "/Newppl/01.jpg",
-    message:
-      "شكراً للأستاذ ثامر على الدورات الرائعة! الوضوح في الشرح والتجاوب السريع مع الأسئلة جعلوا التجربة مثالية.",
-    time: "منذ أسبوع",
-    platform: "facebook",
-  },
-  {
-    id: 7,
-    name: "علي يوسف",
-    avatar: "/Newppl/02.jpg",
-    message:
-      "دورات شاملة ومفيدة جداً. المحتوى منظم بشكل رائع والأستاذ يشرح بطريقة ممتازة. أنصح الجميع بالانضمام.",
-    time: "منذ أسبوع",
-    platform: "whatsapp",
-  },
-  {
-    id: 8,
-    name: "نورا خالد",
-    avatar: "/Newppl/03.jpg",
-    message:
-      "استفدت كثيراً من الدورات المجانية. الشرح واضح والأمثلة عملية. التوجيهي أصبح سهلاً بعد هذه الدورات.",
-    time: "منذ أسبوعين",
-    platform: "website",
-  },
-  {
-    id: 9,
-    name: "يوسف أحمد",
-    avatar: "/Newppl/04.jpg",
-    message:
-      "أفضل استثمار في التعليم! الدورات تغطي كل شيء بشرح مفصل. شكراً للأستاذ على المجهود الكبير.",
-    time: "منذ أسبوعين",
-    platform: "facebook",
-  },
-];
+import { testimonialScreenshots } from "@/data/testimonials";
 
 const getPlatformColor = (platform: string) => {
   switch (platform) {
@@ -159,25 +67,22 @@ export default function SaidAboutUs() {
         <motion.div
           className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
         >
           <motion.h2
             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 leading-tight"
             initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
           >
             قالوا عن <span className="text-primary">دوراتنا</span>
           </motion.h2>
           <motion.p
             className="text-sm sm:text-base md:text-lg text-foreground/70 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
           >
             هذا ما يقوله طلابنا عن الدورات والخدمات التي نقدمها
           </motion.p>
@@ -185,13 +90,12 @@ export default function SaidAboutUs() {
 
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {testimonials.map((testimonial, index) => (
+          {testimonialScreenshots.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3) }}
               whileHover={{ y: -8, scale: 1.02 }}
               className="group"
             >
@@ -226,6 +130,8 @@ export default function SaidAboutUs() {
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 48px, 56px"
+                        priority={index < 3}
+                        loading={index < 3 ? "eager" : "lazy"}
                       />
                     </div>
                     <div className="flex-1 min-w-0">

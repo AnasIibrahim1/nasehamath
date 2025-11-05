@@ -4,30 +4,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import BlurCircle from "@/components/ui/BlurCircle";
-
-const previewTestimonials = [
-  {
-    id: 1,
-    name: "أحمد محمد",
-    avatar: "/Newppl/01.jpg",
-    message: "دورات ممتازة جداً! شرح واضح ومبسط. استفدت كثيراً من دورات التأسيس والمراجعة.",
-    platform: "whatsapp" as const,
-  },
-  {
-    id: 2,
-    name: "فاطمة علي",
-    avatar: "/Newppl/02.jpg",
-    message: "الأستاذ ثامر شرح رائع ومفصل. ساعدني في فهم الرياضيات بشكل أفضل.",
-    platform: "facebook" as const,
-  },
-  {
-    id: 3,
-    name: "خالد إبراهيم",
-    avatar: "/Newppl/03.jpg",
-    message: "أفضل دورات رياضيات أونلاين! المحتوى منظم والأوراق العمل مفيدة جداً.",
-    platform: "whatsapp" as const,
-  },
-];
+import { previewTestimonials } from "@/data/testimonials";
 
 const getPlatformColor = (platform: string) => {
   switch (platform) {

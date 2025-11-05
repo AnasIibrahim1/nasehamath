@@ -4,60 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import BlurCircle from "@/components/ui/BlurCircle";
 import FloatingShape from "@/components/ui/FloatingShape";
-
-interface FAQItem {
-  id: number;
-  question: string;
-  answer: string | React.ReactNode;
-}
-
-const faqItems: FAQItem[] = [
-  {
-    id: 1,
-    question: "أين أبعث أسئلتي؟",
-    answer: (
-      <div className="space-y-2 sm:space-y-3">
-        <p className="text-foreground/80">
-          بإمكانك أن تبعث سؤالك مباشرة على:
-        </p>
-        <ul className="space-y-2 mr-2 sm:mr-4">
-          <li className="flex items-start gap-2">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
-            <span>رسائل الموقع</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
-            <span className="break-words">الواتس: 0787488070 – 0797488070</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary mt-1.5 flex-shrink-0"></span>
-            <span className="break-words">
-              الفيس:{" "}
-              <a
-                href="https://web.facebook.com/Thamer.Tutorial"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline break-all"
-              >
-                https://web.facebook.com/Thamer.Tutorial
-              </a>
-            </span>
-          </li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: 2,
-    question: "كيف ستكون الإجابة؟",
-    answer: (
-      <p className="text-foreground/80 leading-relaxed">
-        حسب السؤال، إن كان استفسار بسيط سأجيبك كتابة أو بصورة، لكن غالباً
-        تكون الإجابة بفيديو قصير.
-      </p>
-    ),
-  },
-];
+import { faqItems } from "@/data/faq";
 
 export default function FAQ() {
   const [openId, setOpenId] = useState<number | null>(1);

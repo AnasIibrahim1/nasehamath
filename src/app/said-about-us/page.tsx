@@ -1,4 +1,3 @@
-import SaidAboutUsV2 from "@/components/sections/SaidAboutUs-V2";
 import SaidAboutUs from "@/components/sections/SaidAboutUs";
 
 export const metadata = {
