@@ -8,10 +8,11 @@ import BlurCircle from "@/components/ui/BlurCircle";
 import FloatingShape from "@/components/ui/FloatingShape";
 
 export default function RegisterForm() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -25,7 +26,7 @@ export default function RegisterForm() {
       setError("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
       return;
     }
-    if (password !== confirm) {
+    if (password !== confirmPassword) {
       setError("كلمتا المرور غير متطابقتين");
       return;
     }
@@ -36,7 +37,7 @@ export default function RegisterForm() {
         // Generate temporary token
         const token = `temp_token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         localStorage.setItem("auth_token", token);
-        localStorage.setItem("user_data", JSON.stringify({ email, name, role: "user" }));
+        localStorage.setItem("user_data", JSON.stringify({ email, username, phone, role: "user" }));
       } catch {}
       setLoading(false);
       setSuccess(true);
@@ -82,49 +83,82 @@ export default function RegisterForm() {
             قم بإنشاء حسابك للبدء في التعلم والاستفادة من جميع الدورات.
           </motion.p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email */}
             <div>
-              <label className="block text-sm font-medium mb-1">الاسم</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="w-full rounded-xl border border-border/60 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="اسمك الكامل"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">البريد الإلكتروني</label>
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                الإيميل <span className="text-red-500">*</span>
+              </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full rounded-xl border border-border/60 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="you@example.com"
+                className="w-full rounded-xl border-2 border-border/40 bg-white px-4 py-3 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                placeholder="الإيميل"
               />
             </div>
+
+            {/* Username */}
             <div>
-              <label className="block text-sm font-medium mb-1">كلمة المرور</label>
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                اسم المستخدم <span className="text-red-500">*</span>
+              </label>
               <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full rounded-xl border border-border/60 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="••••••••"
+                className="w-full rounded-xl border-2 border-border/40 bg-white px-4 py-3 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                placeholder="اسم المستخدم"
               />
             </div>
+
+            {/* Password Fields - Side by Side */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Password */}
+              <div>
+                <label className="block text-sm font-semibold text-foreground mb-2">
+                  الرقم السري <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full rounded-xl border-2 border-border/40 bg-white px-4 py-3 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                  placeholder="*********"
+                />
+              </div>
+
+              {/* Confirm Password */}
+              <div>
+                <label className="block text-sm font-semibold text-foreground mb-2">
+                  قم بتأكيد الرقم السري <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className="w-full rounded-xl border-2 border-border/40 bg-white px-4 py-3 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                  placeholder="*********"
+                />
+              </div>
+            </div>
+
+            {/* Phone */}
             <div>
-              <label className="block text-sm font-medium mb-1">تأكيد كلمة المرور</label>
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                رقم الهاتف <span className="text-red-500">*</span>
+              </label>
               <input
-                type="password"
-                value={confirm}
-                onChange={(e) => setConfirm(e.target.value)}
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 required
-                className="w-full rounded-xl border border-border/60 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="••••••••"
+                className="w-full rounded-xl border-2 border-border/40 bg-white px-4 py-3 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                placeholder=""
               />
             </div>
 

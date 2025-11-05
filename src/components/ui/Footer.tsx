@@ -112,7 +112,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:justify-between lg:items-start lg:gap-12 mb-12">
           {/* Brand section */}
           <motion.div
-            className="w-full max-w-md lg:max-w-xs lg:w-auto"
+            className="w-full max-w-md lg:max-w-xs lg:w-auto text-center lg:text-right"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -124,7 +124,7 @@ export default function Footer() {
                 alt="Naseehamath Logo"
                 width={180}
                 height={180}
-                className="rounded"
+                className="rounded mx-auto lg:mx-0"
                 priority
               />
             </Link>
@@ -133,7 +133,7 @@ export default function Footer() {
               الدورات التعليمية مع الأستاذ ثامر قدورة.
             </p>
             {/* Social media */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center lg:justify-start gap-3">
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.name}
@@ -153,19 +153,19 @@ export default function Footer() {
 
           {/* Quick Links */}
           <motion.div
-            className="w-full max-w-md lg:max-w-xs lg:w-auto"
+            className="w-full max-w-md lg:max-w-xs lg:w-auto text-center lg:text-right"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h3 className="text-lg font-bold mb-4 text-white">روابط سريعة</h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3 flex flex-col items-center lg:items-start">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-accent transition-colors duration-300 text-sm flex items-center gap-2 group"
+                    className="text-white/70 hover:text-accent transition-colors duration-300 text-sm flex items-center gap-2 group justify-center lg:justify-start"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-accent/50 group-hover:bg-accent transition-colors duration-300"></span>
                     {link.label}
@@ -177,19 +177,19 @@ export default function Footer() {
 
           {/* Navigation */}
           <motion.div
-            className="w-full max-w-md lg:max-w-xs lg:w-auto"
+            className="w-full max-w-md lg:max-w-xs lg:w-auto text-center lg:text-right"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h3 className="text-lg font-bold mb-4 text-white">التنقل</h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3 flex flex-col items-center lg:items-start">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-accent transition-colors duration-300 text-sm flex items-center gap-2 group"
+                    className="text-white/70 hover:text-accent transition-colors duration-300 text-sm flex items-center gap-2 group justify-center lg:justify-start"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-accent/50 group-hover:bg-accent transition-colors duration-300"></span>
                     {link.label}
@@ -201,15 +201,15 @@ export default function Footer() {
 
           {/* Contact & Support */}
           <motion.div
-            className="w-full max-w-md lg:max-w-xs lg:w-auto"
+            className="w-full max-w-md lg:max-w-xs lg:w-auto text-center lg:text-right"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <h3 className="text-lg font-bold mb-4 text-white">تواصل معنا</h3>
-            <div className="space-y-4 mb-6">
-              <div className="flex items-start gap-3">
+            <div className="space-y-4 mb-6 flex flex-col items-center lg:items-start">
+              <div className="flex items-start gap-3 justify-center lg:justify-start">
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 backdrop-blur-sm">
                   <svg
                     className="w-5 h-5 text-accent"
@@ -241,7 +241,7 @@ export default function Footer() {
                   </a>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 justify-center lg:justify-start">
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 backdrop-blur-sm">
                   <svg
                     className="w-5 h-5 text-accent"

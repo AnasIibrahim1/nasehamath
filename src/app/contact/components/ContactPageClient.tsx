@@ -50,27 +50,6 @@ export default function ContactPageClient() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <div className="inline-block mb-6">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                className="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-primary rounded-2xl flex items-center justify-center shadow-2xl mb-6"
-              >
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
-              </motion.div>
-            </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-primary">
               <span className="text-black">تواصل</span> معنا
             </h1>
