@@ -3,6 +3,7 @@
 import { forwardRef } from "react";
 import { motion } from "motion/react";
 import type { HTMLMotionProps } from "motion/react";
+import Link from "next/link";
 import clsx from "clsx";
 
 type ButtonProps = HTMLMotionProps<"button"> & {
@@ -12,6 +13,7 @@ type ButtonProps = HTMLMotionProps<"button"> & {
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  href?: string; // Link URL, defaults to "#"
 };
 
 const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
@@ -21,23 +23,15 @@ const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { className, variant = "primary", size = "md", loading, leftIcon, rightIcon, children, ...props },
+  { className, variant = "primary", size = "md", loading, leftIcon, rightIcon, href = "#", children, ...props },
   ref
 ) {
+  // If href is provided and not "#", render as Link
+  const isLink = href && href !== "#";
   // Login variant - Glassmorphism design
   if (variant === "login") {
-    return (
-      <motion.button
-        ref={ref}
-        whileHover={{ scale: 1.05, y: -1 }}
-        whileTap={{ scale: 0.95 }}
-        className={clsx(
-          "group relative rounded-xl font-medium text-foreground/80 bg-white/50 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:text-primary transition-all duration-300 overflow-hidden cursor-pointer",
-          sizeClasses[size],
-          className
-        )}
-        {...props}
-      >
+    const buttonContent = (
+      <>
         {/* Animated background gradient */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/8 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -78,34 +72,47 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           <span>{children as React.ReactNode}</span>
           {!loading && rightIcon}
         </span>
-      </motion.button>
+      </>
     );
-  }
 
-  // Signup/Primary variant - Premium gradient design
-  if (variant === "signup" || variant === "primary") {
+    if (isLink) {
+      return (
+        <motion.div whileHover={{ scale: 1.05, y: -1 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            href={href}
+            className={clsx(
+              "group relative rounded-xl font-medium text-foreground/80 bg-white/50 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:text-primary transition-all duration-300 overflow-hidden cursor-pointer inline-flex items-center justify-center",
+              sizeClasses[size],
+              className
+            )}
+          >
+            {buttonContent}
+          </Link>
+        </motion.div>
+      );
+    }
+
     return (
       <motion.button
         ref={ref}
         whileHover={{ scale: 1.05, y: -1 }}
         whileTap={{ scale: 0.95 }}
         className={clsx(
-          "group relative rounded-xl font-bold text-white overflow-hidden shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300 cursor-pointer",
+          "group relative rounded-xl font-medium text-foreground/80 bg-white/50 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:text-primary transition-all duration-300 overflow-hidden cursor-pointer",
           sizeClasses[size],
           className
         )}
-        style={{
-          background: "linear-gradient(135deg, #0553a3 0%, #066ac9 50%, #0778e8 100%)",
-          backgroundSize: "200% 200%",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundPosition = "100% 100%";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundPosition = "0% 0%";
-        }}
         {...props}
       >
+        {buttonContent}
+      </motion.button>
+    );
+  }
+
+  // Signup/Primary variant - Premium gradient design
+  if (variant === "signup" || variant === "primary") {
+    const buttonContent = (
+      <>
         {/* Animated shimmer overlay */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
@@ -151,6 +158,59 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           <span>{children as React.ReactNode}</span>
           {!loading && rightIcon}
         </span>
+      </>
+    );
+
+    if (isLink) {
+      return (
+        <motion.div whileHover={{ scale: 1.05, y: -1 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            href={href}
+            className={clsx(
+              "group relative rounded-xl font-bold text-white overflow-hidden shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300 cursor-pointer inline-flex items-center justify-center",
+              sizeClasses[size],
+              className
+            )}
+            style={{
+              background: "linear-gradient(135deg, #0553a3 0%, #066ac9 50%, #0778e8 100%)",
+              backgroundSize: "200% 200%",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundPosition = "100% 100%";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundPosition = "0% 0%";
+            }}
+          >
+            {buttonContent}
+          </Link>
+        </motion.div>
+      );
+    }
+
+    return (
+      <motion.button
+        ref={ref}
+        whileHover={{ scale: 1.05, y: -1 }}
+        whileTap={{ scale: 0.95 }}
+        className={clsx(
+          "group relative rounded-xl font-bold text-white overflow-hidden shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300 cursor-pointer",
+          sizeClasses[size],
+          className
+        )}
+        style={{
+          background: "linear-gradient(135deg, #0553a3 0%, #066ac9 50%, #0778e8 100%)",
+          backgroundSize: "200% 200%",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundPosition = "100% 100%";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundPosition = "0% 0%";
+        }}
+        {...props}
+      >
+        {buttonContent}
       </motion.button>
     );
   }
@@ -162,14 +222,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       "border border-border text-foreground bg-background/60 backdrop-blur hover:border-primary/60 hover:text-primary",
   };
 
-  return (
-    <motion.button
-      whileHover={{ y: -1 }}
-      whileTap={{ scale: 0.985 }}
-      className={clsx(base, variants[variant] || "", sizeClasses[size], className)}
-      ref={ref}
-      {...props}
-    >
+  const outlineContent = (
+    <>
       {loading ? (
         <svg
           className="animate-spin h-4 w-4"
@@ -185,6 +239,31 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       )}
       <span>{children as React.ReactNode}</span>
       {!loading && rightIcon}
+    </>
+  );
+
+  if (isLink) {
+    return (
+      <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.985 }}>
+        <Link
+          href={href}
+          className={clsx(base, variants[variant] || "", sizeClasses[size], className)}
+        >
+          {outlineContent}
+        </Link>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.button
+      whileHover={{ y: -1 }}
+      whileTap={{ scale: 0.985 }}
+      className={clsx(base, variants[variant] || "", sizeClasses[size], className)}
+      ref={ref}
+      {...props}
+    >
+      {outlineContent}
     </motion.button>
   );
 });

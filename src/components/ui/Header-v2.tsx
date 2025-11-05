@@ -129,6 +129,7 @@ export default function HeaderV2() {
                <Button
                  variant="login"
                  size="md"
+                 href="/login"
                  leftIcon={
                    <motion.svg
                      width="16"
@@ -161,6 +162,7 @@ export default function HeaderV2() {
                <Button
                  variant="primary"
                  size="md"
+                 href="/register"
                  leftIcon={
                    <motion.svg
                      width="16"
@@ -305,6 +307,7 @@ export default function HeaderV2() {
                  variant="login"
                  size="lg"
                  className="w-full"
+                 href="/login"
                  leftIcon={
                    <svg
                      width="18"
@@ -330,6 +333,7 @@ export default function HeaderV2() {
                  variant="primary"
                  size="lg"
                  className="w-full"
+                 href="/register"
                  leftIcon={
                    <svg
                      width="18"
