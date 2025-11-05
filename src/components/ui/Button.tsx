@@ -217,7 +217,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
 
   // Outline variant - Default outline style
   const base = "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:opacity-60 disabled:pointer-events-none shadow-sm hover:shadow-md cursor-pointer";
-  const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
+  const variants: Partial<Record<NonNullable<ButtonProps["variant"]>, string>> = {
     outline:
       "border border-border text-foreground bg-background/60 backdrop-blur hover:border-primary/60 hover:text-primary",
   };

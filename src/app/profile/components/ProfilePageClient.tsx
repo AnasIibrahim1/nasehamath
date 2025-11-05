@@ -10,7 +10,7 @@ import MyCourses from "./MyCourses";
 import ExamsTable from "./ExamsTable";
 import { User } from "@/types/user";
 import { UserExam } from "@/types/user";
-import { getUserData, getUserExams } from "@/data/user-data";
+import { getUserData, getUserExams, getSubscribedCourses } from "@/data/user-data";
 import { allCourses } from "@/data/courses";
 import BlurCircle from "@/components/ui/BlurCircle";
 
@@ -37,13 +37,17 @@ export default function ProfilePageClient() {
     }
 
     // Get subscribed courses from localStorage
-    const subscribed: number[] = [];
-    allCourses.forEach((course) => {
-      const subscriptionToken = localStorage.getItem(`subscription_token_${course.id}`);
-      if (subscriptionToken) {
-        subscribed.push(course.id);
-      }
-    });
+    let subscribed = getSubscribedCourses();
+    
+    // If no subscribed courses, get from subscription tokens (for backward compatibility)
+    if (subscribed.length === 0) {
+      allCourses.forEach((course) => {
+        const subscriptionToken = localStorage.getItem(`subscription_token_${course.id}`);
+        if (subscriptionToken) {
+          subscribed.push(course.id);
+        }
+      });
+    }
 
     const subscribedCoursesList = allCourses.filter((c) => subscribed.includes(c.id));
 

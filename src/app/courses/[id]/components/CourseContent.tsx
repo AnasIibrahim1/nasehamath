@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CourseDetail } from "@/types/course-detail";
 import Button from "@/components/ui/Button";
+import { subscribeToCourse } from "@/data/user-data";
 
 interface CourseContentProps {
   course: CourseDetail;
@@ -115,6 +116,10 @@ export default function CourseContent({ course, isAuthenticated, isSubscribed }:
                     <Button variant="primary" size="lg" onClick={() => {
                       const subscriptionToken = `sub_token_${course.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
                       localStorage.setItem(`subscription_token_${course.id}`, subscriptionToken);
+                      
+                      // Save subscription date
+                      subscribeToCourse(course.id);
+                      
                       window.location.reload();
                     }}>
                       اشترك الآن

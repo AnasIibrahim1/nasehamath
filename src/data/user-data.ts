@@ -1,4 +1,6 @@
 import { User, UserExam } from "@/types/user";
+import { validateProgress, isValidCourseId } from "@/utils/validation";
+import { isValidISODate } from "@/utils/date-utils";
 
 export const getUserData = (): User | null => {
   if (typeof window === "undefined") return null;
@@ -18,7 +20,11 @@ export const getUserData = (): User | null => {
         totalExams: parsed.totalExams || 0,
       };
     }
-  } catch {}
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error in getUserData:', error);
+    }
+  }
   return null;
 };
 
@@ -77,26 +83,157 @@ export const saveUserExam = (exam: UserExam) => {
     const exams = getUserExams();
     exams.unshift(exam);
     localStorage.setItem("user_exams", JSON.stringify(exams));
-  } catch {}
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error in saveUserExam:', error);
+    }
+  }
 };
 
 export const getCourseProgress = (courseId: number): number => {
   if (typeof window === "undefined") return 0;
   
+  if (!isValidCourseId(courseId)) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Invalid course ID: ${courseId}`);
+    }
+    return 0;
+  }
+  
   try {
     const progress = localStorage.getItem(`course_progress_${courseId}`);
     if (progress) {
-      return parseInt(progress, 10);
+      const parsedProgress = parseInt(progress, 10);
+      return validateProgress(parsedProgress);
     }
-  } catch {}
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`Error in getCourseProgress for course ${courseId}:`, error);
+    }
+  }
   return 0;
 };
 
 export const setCourseProgress = (courseId: number, progress: number) => {
   if (typeof window === "undefined") return;
   
+  if (!isValidCourseId(courseId)) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Invalid course ID: ${courseId}`);
+    }
+    return;
+  }
+  
   try {
-    localStorage.setItem(`course_progress_${courseId}`, progress.toString());
-  } catch {}
+    const validatedProgress = validateProgress(progress);
+    localStorage.setItem(`course_progress_${courseId}`, validatedProgress.toString());
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`Error in setCourseProgress for course ${courseId}:`, error);
+    }
+  }
+};
+
+export const getCourseSubscriptionDate = (courseId: number): string | null => {
+  if (typeof window === "undefined") return null;
+  
+  if (!isValidCourseId(courseId)) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Invalid course ID: ${courseId}`);
+    }
+    return null;
+  }
+  
+  try {
+    const date = localStorage.getItem(`course_subscription_${courseId}`);
+    if (date) {
+      // Validate that it's a proper ISO date string
+      if (isValidISODate(date)) {
+        return date;
+      } else {
+        if (process.env.NODE_ENV === 'development') {
+          console.warn(`Invalid date format for course ${courseId}: ${date}`);
+        }
+      }
+    }
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`Error in getCourseSubscriptionDate for course ${courseId}:`, error);
+    }
+  }
+  return null;
+};
+
+export const setCourseSubscriptionDate = (courseId: number, date?: string) => {
+  if (typeof window === "undefined") return;
+  
+  if (!isValidCourseId(courseId)) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Invalid course ID: ${courseId}`);
+    }
+    return;
+  }
+  
+  try {
+    const subscriptionDate = date || new Date().toISOString();
+    // Validate date format
+    if (isValidISODate(subscriptionDate)) {
+      localStorage.setItem(`course_subscription_${courseId}`, subscriptionDate);
+    } else {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`Invalid date format provided: ${subscriptionDate}`);
+      }
+      // Fallback to current date
+      localStorage.setItem(`course_subscription_${courseId}`, new Date().toISOString());
+    }
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`Error in setCourseSubscriptionDate for course ${courseId}:`, error);
+    }
+  }
+};
+
+export const getSubscribedCourses = (): number[] => {
+  if (typeof window === "undefined") return [];
+  
+  try {
+    const subscribed = localStorage.getItem("subscribed_courses");
+    if (subscribed) {
+      const parsed = JSON.parse(subscribed);
+      // Validate that all items are valid course IDs
+      if (Array.isArray(parsed)) {
+        return parsed.filter((id) => isValidCourseId(id));
+      }
+    }
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error in getSubscribedCourses:', error);
+    }
+  }
+  return [];
+};
+
+export const subscribeToCourse = (courseId: number) => {
+  if (typeof window === "undefined") return;
+  
+  if (!isValidCourseId(courseId)) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Invalid course ID: ${courseId}`);
+    }
+    return;
+  }
+  
+  try {
+    const subscribed = getSubscribedCourses();
+    if (!subscribed.includes(courseId)) {
+      subscribed.push(courseId);
+      localStorage.setItem("subscribed_courses", JSON.stringify(subscribed));
+      setCourseSubscriptionDate(courseId);
+    }
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`Error in subscribeToCourse for course ${courseId}:`, error);
+    }
+  }
 };
 

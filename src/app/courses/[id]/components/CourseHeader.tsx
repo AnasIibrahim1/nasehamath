@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { CourseDetail } from "@/types/course-detail";
+import { subscribeToCourse } from "@/data/user-data";
 
 interface CourseHeaderProps {
   course: CourseDetail;
@@ -134,9 +135,13 @@ export default function CourseHeader({ course, isAuthenticated, isSubscribed }: 
                 </Button>
               ) : !isSubscribed ? (
                 <Button variant="primary" size="lg" onClick={() => {
-                  // Subscribe logic - save subscription token
+                  // Subscribe logic - save subscription token and date
                   const subscriptionToken = `sub_token_${course.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
                   localStorage.setItem(`subscription_token_${course.id}`, subscriptionToken);
+                  
+                  // Save subscription date
+                  subscribeToCourse(course.id);
+                  
                   window.location.reload();
                 }}>
                   اشترك الآن
