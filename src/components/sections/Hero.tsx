@@ -43,11 +43,7 @@ export default function Hero() {
         color="bg-primary/20"
         position={{ right: "6rem", top: "-5rem" }}
       />
-      <BlurCircle
-        size={288}
-        color="bg-accent/20"
-        position={{ left: "6rem", bottom: "-6rem" }}
-      />
+
 
 
       <div className="mx-auto max-w-7xl px-4 py-16 md:py-24">
@@ -374,14 +370,6 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            <FloatingShape
-              type="solid-circle"
-              size={48}
-              color="bg-accent/20"
-              position={{ left: "-1.5rem", bottom: "2rem" }}
-              duration={3}
-              delay={0}
-            />
 
             <div className="absolute left-1/2 -bottom-4 -translate-x-1/2">
               <FloatingShape

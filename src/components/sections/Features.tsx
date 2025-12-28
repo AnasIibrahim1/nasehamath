@@ -16,11 +16,6 @@ export default function Features() {
         color="bg-primary/20"
         position={{ right: "6rem", top: "-5rem" }}
       />
-      <BlurCircle
-        size={288}
-        color="bg-accent/20"
-        position={{ left: "6rem", bottom: "-6rem" }}
-      />
       </div>
 
       {/* Floating shapes */}
@@ -34,14 +29,6 @@ export default function Features() {
         />
       </div>
 
-      <FloatingShape
-        type="solid-circle"
-        size={48}
-        color="bg-accent/20"
-        position={{ bottom: "2rem", left: "-1.5rem" }}
-        duration={3}
-        delay={0.3}
-      />
 
       {/* Floating circles */}
       <FloatingCircle
